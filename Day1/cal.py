@@ -1,25 +1,25 @@
-with open('input.txt','r') as f:
+with open('input.txt', 'r') as f:
     contents = f.read()
-#print(contents)
+# print(contents)
 number = ""
-listNumber= []
-finalList= []
+listNumber = []
+finalList = []
 type(contents)
 for line in contents:
     if line == ' ':
-        continue  
-    if line != '\n':        
+        continue
+    if line != '\n':
         number += line
         newLine = False
     if line == '\n':
         if newLine:
             finalList.append(sum(listNumber))
-            listNumber = []           
-            continue            
+            listNumber = []
+            continue
         c = int(number)
         listNumber.append(c)
         newLine = True
-        number = ''     
+        number = ''
 print(finalList)
 
 i = 0
@@ -27,12 +27,12 @@ biggest = 0
 index = 0
 secBiggest = 0
 trdBiggest = 0
-for item in finalList:    
+for item in finalList:
     if item > biggest:
         secBiggest = biggest
         index2 = index
         biggest = item
-        index = i        
+        index = i
     elif item > secBiggest:
         trdBiggest = secBiggest
         index3 = index2
@@ -41,13 +41,12 @@ for item in finalList:
     elif item > trdBiggest:
         trdBiggest = item
         index3 = i
-    i+=1
+    i += 1
 
 print(finalList[index]+finalList[index2]+finalList[index3])
-print(finalList[index],biggest)
-print(finalList[index2],secBiggest)
-print(finalList[index3],trdBiggest)
+print(finalList[index], biggest)
+print(finalList[index2], secBiggest)
+print(finalList[index3], trdBiggest)
 
 
-
-#for(line in contents):
+# for(line in contents):
