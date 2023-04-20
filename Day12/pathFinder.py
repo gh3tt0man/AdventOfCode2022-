@@ -8,8 +8,7 @@ import copy
 
 def findNeighbour(map: list,point: tuple)-> list:
     neighbours = []
-    y = point[0]
-    x = point[1]
+    y, x = point
 
     if map[y-1][x]-1 <= map[y][x] and y-1 >= 0:
         neighbours.append((y-1,x))
@@ -106,24 +105,16 @@ def main(*args) -> None:
     array[startIndex[0]][startIndex[1]] = 0
     array[endIndex[0]][endIndex[1]] = 25
 
-    memb = {}
-    zeros=[]
-    for i,x in enumerate(array):
-        for j,z in enumerate(x):
-            memb[i,j] =[float('inf'),None]
-            if z == 0:
-                zeros+= [(i,j)]
-    
+    #Initialize an ordered dict with indexes from the map for keys and a list for values [DistanceToStart, PreviousNode]
+    memb = OrderedDict(((i, j), [float('inf'), None]) for i, row in enumerate(array) for j, _ in enumerate(row))
                             
     #set initial start point to 0 distance
-    memb = OrderedDict(memb)
+
     startTuple=(0,tuple(startIndex))
     #Part1
     if args[0] == 1:
-        b = visitPoint(memb,startTuple,array)
-        #
-        print(b[tuple(endIndex)])
-
+        distancesToStart = visitPoint(memb,startTuple,array)
+        print(distancesToStart[tuple(endIndex)])
 
     #Part 2
         #reverse the map and find the shortest path from the end to all other points
@@ -135,11 +126,11 @@ def main(*args) -> None:
                 if array[k][f] == 25:
                     aIndex.append([k,f])
         startTuple = (0,tuple(endIndex))
-        a = visitPoint(memb,startTuple,array)
+        pathsFromEnd = visitPoint(memb,startTuple,array)
         pathsToA=[]
         for iPoint in aIndex:
             try:
-                pathsToA.append(a[tuple(iPoint)][0])
+                pathsToA.append(pathsFromEnd[tuple(iPoint)][0])
             except KeyError:
                 _ = "No path"
             
@@ -196,5 +187,5 @@ if __name__ == '__main__':
     main(1)
     print('Dijkstras',time.time()-startTime)
     startTime = time.time()
-    #main('2*')
+    main('1*')
     print('A*',time.time()-startTime)
