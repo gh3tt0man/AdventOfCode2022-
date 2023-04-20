@@ -165,22 +165,7 @@ def main(*args) -> None:
         #print(df)
         df.to_csv(f'{dir}/visited2.csv')
         
-    if args[0] == '2*':
-        
-        
-        #Part 2 A*
-        c=[]   
-        for item in zeros:
-            startTpl = (0,item)        
-            a = aStar(memb,startTpl,array,endIndex)
-            print(item,end="\r")
-            #print(a[tuple(endIndex)])
-            try:
-                c += [a[tuple(endIndex)]]
-            except KeyError:
-                _ ='no path'
-        
-        print('MIN value is',min(c))
+
 
 if __name__ == '__main__':
     startTime = time.time()
